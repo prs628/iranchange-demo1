@@ -86,7 +86,7 @@ export default function AdminLoginPage() {
   // PHASE 1: Removed NextAuth session checks - using localStorage auth instead
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative flex items-center justify-center p-4 overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative flex items-center justify-center p-4" style={{ height: '100vh', overflow: 'hidden' }}>
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
         <div className="absolute inset-0" style={{

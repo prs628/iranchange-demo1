@@ -316,7 +316,7 @@ export default function LandingPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-950 relative flex flex-col overflow-x-hidden">
+    <div className="min-h-screen bg-slate-950 relative flex flex-col" style={{ overflowX: 'hidden', width: '100%' }}>
       {/* Dark gradient background */}
       <div className="fixed inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 pointer-events-none" />
       
@@ -329,7 +329,6 @@ export default function LandingPage() {
       />
       
       {/* Debug badge */}
-      <div className="fixed bottom-4 left-4 z-[9999] rounded-lg bg-red-600 px-3 py-2 text-white text-sm font-medium">V2</div>
 
       {/* Page content (header + body) */}
       <div className="flex-1 flex flex-col relative z-10">
