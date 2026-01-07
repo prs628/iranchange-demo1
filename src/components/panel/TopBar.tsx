@@ -102,9 +102,9 @@ export default function TopBar() {
             ) : (
               <button
                 onClick={openAuthModal}
-                className="px-3 sm:px-6 py-2 sm:py-2.5 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 text-[11px] sm:text-sm whitespace-nowrap flex-shrink-0 min-w-fit"
+                className="px-3 sm:px-6 py-2 sm:py-2.5 bg-gradient-to-r from-red-500 to-orange-600 text-white font-medium rounded-lg hover:from-red-600 hover:to-orange-700 transition-all shadow-lg shadow-red-500/25 hover:shadow-red-500/40 text-[11px] sm:text-sm whitespace-nowrap flex-shrink-0 min-w-fit"
               >
-                <span className="sm:hidden">تست</span>
+                <span className="sm:hidden">🔥 تست تغییر</span>
                 <span className="hidden sm:inline">ورود / ثبت‌نام</span>
               </button>
             )}
