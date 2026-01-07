@@ -1,6 +1,20 @@
 import type { NextConfig } from "next";
 
+// GitHub Pages configuration
+const isGitHubPages = process.env.GITHUB_PAGES === "true";
+const repoName = "iranchange-demo1";
+const basePath = isGitHubPages ? `/${repoName}` : "";
+const assetPrefix = isGitHubPages ? `/${repoName}/` : "";
+
 const nextConfig: NextConfig = {
+  // Static export for GitHub Pages
+  ...(isGitHubPages ? {
+    output: "export" as const,
+    basePath,
+    assetPrefix,
+    images: { unoptimized: true },
+  } : {}),
+  
   /* config options here */
   eslint: {
     ignoreDuringBuilds: true, // Disable ESLint during builds for demo deployment
@@ -12,18 +26,7 @@ const nextConfig: NextConfig = {
     // Vercel automatically provides VERCEL_GIT_COMMIT_SHA during build
     NEXT_PUBLIC_BUILD_SHA: process.env.VERCEL_GIT_COMMIT_SHA || process.env.NEXT_PUBLIC_BUILD_SHA || "local",
   },
-  async headers() {
-    return [
-      {
-        source: "/api/:path*",
-        headers: [
-          { key: "Access-Control-Allow-Origin", value: "*" },
-          { key: "Access-Control-Allow-Methods", value: "GET, POST, PUT, DELETE, OPTIONS" },
-          { key: "Access-Control-Allow-Headers", value: "Content-Type, Authorization" },
-        ],
-      },
-    ];
-  },
+  // Headers removed for static export (not supported)
   // Transpile Prisma Client
   transpilePackages: ['@prisma/client'],
   webpack: (config, { isServer, webpack }) => {
