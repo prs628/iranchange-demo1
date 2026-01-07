@@ -444,7 +444,7 @@ export default function DashboardPage() {
                   برای مشاهده سفارش‌های خود وارد شوید
                 </p>
                 <button
-                  onClick={openAuthModal}
+                  onClick={() => openAuthModal()}
                   className="px-6 py-2.5 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all shadow-lg shadow-blue-500/25"
                 >
                   ورود / ثبت‌نام
@@ -490,7 +490,7 @@ export default function DashboardPage() {
                     برای مشاهده اعلان‌ها وارد شوید
                   </p>
                   <button
-                    onClick={openAuthModal}
+                    onClick={() => openAuthModal()}
                     className="px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all text-sm"
                   >
                     ورود / ثبت‌نام
