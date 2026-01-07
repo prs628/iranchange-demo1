@@ -1,64 +1,14 @@
-import type { NextConfig } from "next";
-
 const repo = "iranchange-demo1";
 
-const nextConfig: NextConfig = {
+const nextConfig = {
   output: "export",
   images: { unoptimized: true },
   basePath: `/${repo}`,
   assetPrefix: `/${repo}/`,
   trailingSlash: true,
-  
-  /* config options here */
-  eslint: {
-    ignoreDuringBuilds: true, // Disable ESLint during builds for demo deployment
-  },
-  typescript: {
-    ignoreBuildErrors: false, // Keep TS checking, but allow ESLint to be ignored
-  },
-  env: {
-    // Vercel automatically provides VERCEL_GIT_COMMIT_SHA during build
-    NEXT_PUBLIC_BUILD_SHA: process.env.VERCEL_GIT_COMMIT_SHA || process.env.NEXT_PUBLIC_BUILD_SHA || "local",
-  },
-  // Headers removed for static export (not supported)
-  // Transpile Prisma Client
-  transpilePackages: ['@prisma/client'],
-  webpack: (config, { isServer, webpack }) => {
-    // Allow importing .ts files from node_modules/.prisma/client
-    config.resolve.extensions.push('.ts', '.tsx');
-    
-    // Expose BUILD_SHA to client-side via DefinePlugin
-    if (!isServer) {
-      config.plugins.push(
-        new webpack.DefinePlugin({
-          'process.env.NEXT_PUBLIC_BUILD_SHA': JSON.stringify(
-            process.env.VERCEL_GIT_COMMIT_SHA || process.env.NEXT_PUBLIC_BUILD_SHA || "local"
-          ),
-        })
-      );
-    }
-    
-    // Make sure .prisma/client TypeScript files are transpiled
-    if (isServer) {
-      // Add rule to transpile Prisma Client TypeScript files
-      config.module.rules.push({
-        test: /\.tsx?$/,
-        include: [
-          /node_modules\/\.prisma\/client/,
-          /node_modules\/@prisma\/client/,
-        ],
-        use: {
-          loader: 'next/dist/compiled/babel/loader',
-          options: {
-            presets: ['next/babel'],
-            plugins: [],
-          },
-        },
-      });
-    }
-    
-    return config;
-  },
+
+  // ✅ مهم: جلوی Fail شدن build به خاطر ESLint رو می‌گیره
+  eslint: { ignoreDuringBuilds: true },
 };
 
 export default nextConfig;
