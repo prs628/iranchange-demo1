@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: false, // Keep TS checking, but allow ESLint to be ignored
   },
   env: {
+    // Vercel automatically provides VERCEL_GIT_COMMIT_SHA during build
     NEXT_PUBLIC_BUILD_SHA: process.env.VERCEL_GIT_COMMIT_SHA || process.env.NEXT_PUBLIC_BUILD_SHA || "local",
   },
   async headers() {
@@ -25,9 +26,20 @@ const nextConfig: NextConfig = {
   },
   // Transpile Prisma Client
   transpilePackages: ['@prisma/client'],
-  webpack: (config, { isServer }) => {
+  webpack: (config, { isServer, webpack }) => {
     // Allow importing .ts files from node_modules/.prisma/client
     config.resolve.extensions.push('.ts', '.tsx');
+    
+    // Expose BUILD_SHA to client-side via DefinePlugin
+    if (!isServer) {
+      config.plugins.push(
+        new webpack.DefinePlugin({
+          'process.env.NEXT_PUBLIC_BUILD_SHA': JSON.stringify(
+            process.env.VERCEL_GIT_COMMIT_SHA || process.env.NEXT_PUBLIC_BUILD_SHA || "local"
+          ),
+        })
+      );
+    }
     
     // Make sure .prisma/client TypeScript files are transpiled
     if (isServer) {
