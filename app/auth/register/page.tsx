@@ -7,11 +7,29 @@ import Link from "next/link";
 import { register } from "@/lib/auth";
 
 export default function RegisterPage() {
-  // Prevent body scroll when this page is open
+  // Prevent body and html scroll when this page is open
   useEffect(() => {
-    document.body.style.overflow = 'hidden';
+    const html = document.documentElement;
+    const body = document.body;
+    
+    // Save original overflow values
+    const originalHtmlOverflow = html.style.overflow;
+    const originalBodyOverflow = body.style.overflow;
+    const originalBodyPosition = body.style.position;
+    const originalBodyWidth = body.style.width;
+    
+    // Disable scroll on html and body
+    html.style.overflow = 'hidden';
+    body.style.overflow = 'hidden';
+    body.style.position = 'fixed';
+    body.style.width = '100%';
+    
     return () => {
-      document.body.style.overflow = '';
+      // Restore original values
+      html.style.overflow = originalHtmlOverflow;
+      body.style.overflow = originalBodyOverflow;
+      body.style.position = originalBodyPosition;
+      body.style.width = originalBodyWidth;
     };
   }, []);
   const router = useRouter();
@@ -112,16 +130,16 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 z-50 overflow-y-auto">
+    <div className="fixed inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 z-50" style={{ overflowY: 'auto', WebkitOverflowScrolling: 'touch' }}>
       {/* Background Pattern */}
-      <div className="fixed inset-0 opacity-[0.03] pointer-events-none">
+      <div className="fixed inset-0 opacity-[0.03] pointer-events-none z-0">
         <div className="absolute inset-0" style={{
           backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
           backgroundSize: "40px 40px"
         }} />
       </div>
 
-      <div className="relative z-10 w-full max-w-md mx-auto my-8 px-4 min-h-full flex items-start justify-center py-8">
+      <div className="relative z-10 w-full max-w-md mx-auto px-4 py-8 min-h-screen flex items-start justify-center">
         <div className="glass-card rounded-2xl p-6 sm:p-8 shadow-2xl border border-white/10">
           {/* Header */}
           <div className="mb-8 text-center">
@@ -164,8 +182,13 @@ export default function RegisterPage() {
                   onFocus={(e) => {
                     // Scroll input into view on mobile
                     setTimeout(() => {
-                      e.target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }, 300);
+                      const submitBtn = document.getElementById('register-submit-btn');
+                      if (submitBtn) {
+                        submitBtn.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+                      } else {
+                        e.target.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+                      }
+                    }, 100);
                   }}
                 />
               </div>
@@ -183,8 +206,13 @@ export default function RegisterPage() {
                   placeholder="نام خانوادگی"
                   onFocus={(e) => {
                     setTimeout(() => {
-                      e.target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }, 300);
+                      const submitBtn = document.getElementById('register-submit-btn');
+                      if (submitBtn) {
+                        submitBtn.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+                      } else {
+                        e.target.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+                      }
+                    }, 100);
                   }}
                 />
               </div>
@@ -205,8 +233,13 @@ export default function RegisterPage() {
                   placeholder="09123456789"
                   onFocus={(e) => {
                     setTimeout(() => {
-                      e.target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }, 300);
+                      const submitBtn = document.getElementById('register-submit-btn');
+                      if (submitBtn) {
+                        submitBtn.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+                      } else {
+                        e.target.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+                      }
+                    }, 100);
                   }}
                 />
               </div>
@@ -225,8 +258,13 @@ export default function RegisterPage() {
                 placeholder="example@email.com"
                 onFocus={(e) => {
                   setTimeout(() => {
-                    e.target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                  }, 300);
+                    const submitBtn = document.getElementById('register-submit-btn');
+                    if (submitBtn) {
+                      submitBtn.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+                    } else {
+                      e.target.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+                    }
+                  }, 100);
                 }}
               />
             </div>
@@ -247,8 +285,13 @@ export default function RegisterPage() {
                 placeholder="حداقل ۸ کاراکتر"
                 onFocus={(e) => {
                   setTimeout(() => {
-                    e.target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                  }, 300);
+                    const submitBtn = document.getElementById('register-submit-btn');
+                    if (submitBtn) {
+                      submitBtn.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+                    } else {
+                      e.target.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+                    }
+                  }, 100);
                 }}
               />
               {passwordStrength && (
@@ -291,9 +334,9 @@ export default function RegisterPage() {
                   setTimeout(() => {
                     const submitBtn = document.getElementById('register-submit-btn');
                     if (submitBtn) {
-                      submitBtn.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                      submitBtn.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
                     } else {
-                      e.target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                      e.target.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
                     }
                   }, 300);
                 }}
