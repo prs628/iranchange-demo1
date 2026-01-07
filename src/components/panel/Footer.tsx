@@ -61,7 +61,7 @@ export default function Footer() {
                 className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-slate-200 text-[11px] sm:text-xs hover:bg-pink-500/20 hover:border-pink-400/70 hover:text-pink-300 transition-colors"
               >
                 <img
-                  src="/icon/instagram.png"
+                  src={getAssetPath("/icon/instagram.png")}
                   alt="Instagram"
                   className="w-4 h-4"
                 />
@@ -72,7 +72,7 @@ export default function Footer() {
                 className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-slate-200 text-[11px] sm:text-xs hover:bg-cyan-500/20 hover:border-cyan-400/70 hover:text-cyan-300 transition-colors"
               >
                 <img
-                  src="/icon/telegram.png"
+                  src={getAssetPath("/icon/telegram.png")}
                   alt="Telegram"
                   className="w-4 h-4"
                 />
@@ -83,7 +83,7 @@ export default function Footer() {
                 className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-slate-200 text-[11px] sm:text-xs hover:bg-slate-500/20 hover:border-slate-300/70 hover:text-slate-100 transition-colors"
               >
                 <img
-                  src="/icon/twitter.png"
+                  src={getAssetPath("/icon/twitter.png")}
                   alt="Twitter / X"
                   className="w-4 h-4"
                 />
