@@ -25,14 +25,14 @@ export default function AdminLoginPage() {
         const users = JSON.parse(localStorage.getItem("users") || "[]");
         const user = users.find((u: any) => u.id.toString() === sessionUserId);
         if (user && user.role === "admin") {
-          router.push("/admin");
+          // Redirect directly to dashboard to avoid redirect loop
+          router.push("/admin/dashboard");
         }
       }
     };
     
+    // Only check once on mount, not continuously
     checkAuth();
-    const interval = setInterval(checkAuth, 500);
-    return () => clearInterval(interval);
   }, [router]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -75,7 +75,7 @@ export default function AdminLoginPage() {
       }
 
       // Admin login successful - redirect to admin dashboard
-      router.push("/admin");
+      router.push("/admin/dashboard");
     } catch (err) {
       console.error("Login error:", err);
       setError("خطا در ورود. لطفاً دوباره تلاش کنید.");

@@ -26,7 +26,7 @@ export default function AdminLayout({
   const [isMounted, setIsMounted] = useState(false);
 
   // Skip authentication check for login page
-  const isLoginPage = pathname === "/admin/login";
+  const isLoginPage = pathname === "/admin/login" || pathname === "/iranchange-demo1/admin/login";
 
   // Mark as mounted on client-side
   useEffect(() => {
