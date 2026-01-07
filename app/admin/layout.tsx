@@ -26,7 +26,8 @@ export default function AdminLayout({
   const [isMounted, setIsMounted] = useState(false);
 
   // Skip authentication check for login page
-  const isLoginPage = pathname === "/admin/login" || pathname === "/iranchange-demo1/admin/login";
+  // Handle both with and without basePath
+  const isLoginPage = pathname?.endsWith("/admin/login") || pathname === "/admin/login" || pathname?.includes("/admin/login");
 
   // Mark as mounted on client-side
   useEffect(() => {
@@ -37,6 +38,12 @@ export default function AdminLayout({
   // ساده‌سازی منطق: فقط روی mount و وقتی session_user_id در localStorage تغییر کند
   useEffect(() => {
     if (!isMounted || typeof window === "undefined") {
+      return;
+    }
+
+    // Skip auth check if on login page
+    if (isLoginPage) {
+      setIsChecking(false);
       return;
     }
 
@@ -77,11 +84,12 @@ export default function AdminLayout({
     return () => {
       window.removeEventListener("storage", handleStorage);
     };
-  }, [isMounted]);
+  }, [isMounted, isLoginPage]);
 
   useEffect(() => {
-    // If on login page, skip authentication check
+    // If on login page, skip authentication check completely
     if (isLoginPage) {
+      setIsChecking(false);
       return;
     }
 
@@ -101,7 +109,7 @@ export default function AdminLayout({
       router.push("/dashboard");
       return;
     }
-  }, [isAuthenticated, isChecking, sessionUser, isLoginPage, router]);
+  }, [isAuthenticated, isChecking, sessionUser, isLoginPage, router, pathname]);
 
   // If on login page, render without admin layout
   if (isLoginPage) {
