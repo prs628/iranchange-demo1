@@ -9,18 +9,27 @@ type TabType = "login" | "register";
 type AuthModalProps = {
   isOpen: boolean;
   onClose: () => void;
+  initialTab?: TabType;
 };
 
 export default function AuthModal({
   isOpen,
   onClose,
+  initialTab = "login",
 }: AuthModalProps) {
   const { closeAuthModal } = useAuth();
-  const [activeTab, setActiveTab] = useState<TabType>("login");
+  const [activeTab, setActiveTab] = useState<TabType>(initialTab);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // Close on Escape key
+  // Reset tab when modal opens or initialTab changes
+  useEffect(() => {
+    if (isOpen) {
+      setActiveTab(initialTab);
+    }
+  }, [isOpen, initialTab]);
+
+  // Close on Escape key and prevent body scroll
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape" && isOpen) {
@@ -28,14 +37,55 @@ export default function AuthModal({
       }
     };
 
+    // Prevent scroll on backdrop - only allow scroll inside modal content
+    const handleTouchMove = (e: TouchEvent) => {
+      const target = e.target as HTMLElement;
+      // Check if touch is inside the scrollable modal content
+      const scrollableContent = target.closest('.overflow-y-auto');
+      
+      // If not inside scrollable content, prevent scroll
+      if (!scrollableContent) {
+        e.preventDefault();
+      }
+    };
+
     if (isOpen) {
       document.addEventListener("keydown", handleEscape);
+      document.addEventListener("touchmove", handleTouchMove, { passive: false });
+      
+      // Prevent body scroll on mobile
+      const scrollY = window.scrollY;
+      const originalOverflow = document.body.style.overflow;
+      const originalPosition = document.body.style.position;
+      const originalWidth = document.body.style.width;
+      const originalTop = document.body.style.top;
+      const originalOverscroll = document.body.style.overscrollBehavior;
+      
       document.body.style.overflow = "hidden";
+      document.body.style.position = "fixed";
+      document.body.style.width = "100%";
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.overscrollBehavior = "none";
+      
+      return () => {
+        document.removeEventListener("keydown", handleEscape);
+        document.removeEventListener("touchmove", handleTouchMove);
+        
+        // Restore body styles
+        document.body.style.overflow = originalOverflow;
+        document.body.style.position = originalPosition;
+        document.body.style.width = originalWidth;
+        document.body.style.top = originalTop;
+        document.body.style.overscrollBehavior = originalOverscroll;
+        
+        // Restore scroll position
+        window.scrollTo(0, scrollY);
+      };
     }
 
     return () => {
       document.removeEventListener("keydown", handleEscape);
-      document.body.style.overflow = "unset";
+      document.removeEventListener("touchmove", handleTouchMove);
     };
   }, [isOpen, onClose]);
 
@@ -182,7 +232,10 @@ export default function AuthModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-in fade-in duration-200">
+    <div 
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-in fade-in duration-200"
+      style={{ overscrollBehavior: 'none' }}
+    >
       {/* Backdrop - clickable to close */}
       <div
         className="absolute inset-0 bg-black/80 backdrop-blur-sm"
@@ -191,13 +244,13 @@ export default function AuthModal({
 
       {/* Modal */}
       <div
-        className="relative z-10 w-full max-w-md glass-card rounded-2xl p-8 pt-12 shadow-2xl animate-in zoom-in duration-200"
+        className="relative z-10 w-full max-w-md max-h-[90vh] glass-card rounded-2xl shadow-2xl animate-in zoom-in duration-200 flex flex-col overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close Button */}
+        {/* Close Button - Fixed position outside scrollable area */}
         <button
           onClick={onClose}
-          className="absolute left-4 top-4 w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-colors"
+          className="absolute left-4 top-4 z-20 w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-colors"
           aria-label="بستن"
         >
           <svg
@@ -214,6 +267,9 @@ export default function AuthModal({
             />
           </svg>
         </button>
+        
+        {/* Scrollable content container */}
+        <div className="overflow-y-auto overscroll-contain flex-1 px-8 pt-12 pb-8">
 
         {/* Tabs */}
         <div className="flex gap-2 mb-6 bg-white/5 p-1 rounded-lg">
@@ -452,6 +508,7 @@ export default function AuthModal({
             </button>
           </form>
         )}
+        </div>
       </div>
     </div>
   );

@@ -6,11 +6,12 @@ import AuthModal from "./AuthModal";
 
 type AuthContextType = {
   isModalOpen: boolean;
-  openAuthModal: () => void;
+  openAuthModal: (tab?: "login" | "register") => void;
   closeAuthModal: () => void;
   isLoggedIn: boolean;
   loginDemo: () => void;
   logoutDemo: () => void;
+  authModalTab: "login" | "register";
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -18,6 +19,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [authModalTab, setAuthModalTab] = useState<"login" | "register">("login");
 
   // Initialize: migrate users and seed admin on first load
   useEffect(() => {
@@ -60,7 +62,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
   }, [checkAuth]);
 
-  const openAuthModal = useCallback(() => setIsModalOpen(true), []);
+  const openAuthModal = useCallback((tab: "login" | "register" = "login") => {
+    setAuthModalTab(tab);
+    setIsModalOpen(true);
+  }, []);
   const closeAuthModal = useCallback(() => setIsModalOpen(false), []);
 
   const loginDemo = useCallback(() => {
@@ -90,6 +95,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         isLoggedIn,
         loginDemo,
         logoutDemo,
+        authModalTab,
       }}
     >
       {children}
@@ -98,6 +104,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         <AuthModal
           isOpen={isModalOpen}
           onClose={closeAuthModal}
+          initialTab={authModalTab}
         />
       )}
     </AuthContext.Provider>

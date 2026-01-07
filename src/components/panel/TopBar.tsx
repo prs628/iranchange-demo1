@@ -62,12 +62,12 @@ export default function TopBar() {
 
   return (
     <>
-      <div className="w-full bg-white/5 backdrop-blur-sm border-b border-white/10 px-2 sm:px-6 py-3.5 sm:py-4.5">
-        <div className="flex items-center justify-between gap-1 sm:gap-4">
-          {/* Right: Logo + Page Title */}
-          <div className="flex items-center gap-1 sm:gap-4 flex-shrink min-w-0">
-            <Link href="/" className="flex items-center gap-1 sm:gap-2 flex-none shrink-0">
-              <div className="h-6 sm:h-10 w-20 sm:w-40 overflow-hidden flex-none shrink-0">
+      <div className="w-full bg-white/5 backdrop-blur-sm border-b border-white/10 px-2 sm:px-6 py-3 sm:py-4.5">
+        <div className="flex items-center justify-between gap-2 sm:gap-4">
+          {/* Right: Logo + Page Title - Hidden on mobile to save space */}
+          <div className="flex items-center gap-2 sm:gap-4 flex-shrink min-w-0">
+            <Link href="/" className="flex items-center gap-1 sm:gap-2 flex-none shrink-0 hidden sm:flex">
+              <div className="h-10 w-40 overflow-hidden flex-none shrink-0">
                 <img
                   src="/log/iranchange-logo.png"
                   alt="Iranchange"
@@ -75,7 +75,7 @@ export default function TopBar() {
                 />
               </div>
             </Link>
-            <h1 className="text-[10px] sm:text-lg font-bold text-white truncate hidden xs:block">{getPageTitle()}</h1>
+            <h1 className="text-lg font-bold text-white truncate hidden sm:block">{getPageTitle()}</h1>
           </div>
 
           {/* Center: Search (optional) */}
@@ -87,8 +87,8 @@ export default function TopBar() {
             />
           </div>
 
-          {/* Top-Left: Auth Button */}
-          <div className="flex items-center gap-1 sm:gap-3 flex-shrink-0">
+          {/* Top-Left: Auth Button - Full width priority on mobile */}
+          <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
             {isLoggedIn ? (
               <>
                 <span className="text-sm text-gray-300 hidden sm:inline">{userName || "کاربر"}</span>
@@ -100,13 +100,28 @@ export default function TopBar() {
                 </button>
               </>
             ) : (
-              <button
-                onClick={openAuthModal}
-                className="px-3 sm:px-6 py-2 sm:py-2.5 bg-gradient-to-r from-red-500 to-orange-600 text-white font-medium rounded-lg hover:from-red-600 hover:to-orange-700 transition-all shadow-lg shadow-red-500/25 hover:shadow-red-500/40 text-[11px] sm:text-sm whitespace-nowrap flex-shrink-0 min-w-fit"
-              >
-                <span className="sm:hidden">🔥 تست تغییر</span>
-                <span className="hidden sm:inline">ورود / ثبت‌نام</span>
-              </button>
+              <div className="flex items-center gap-2">
+                {/* Mobile: Two separate buttons */}
+                <button
+                  onClick={() => openAuthModal("login")}
+                  className="sm:hidden px-3 py-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-medium rounded-lg hover:from-green-600 hover:to-emerald-700 transition-all shadow-lg shadow-green-500/25 hover:shadow-green-500/40 text-xs whitespace-nowrap flex-shrink-0"
+                >
+                  ورود
+                </button>
+                <button
+                  onClick={() => openAuthModal("register")}
+                  className="sm:hidden px-3 py-2 bg-gradient-to-r from-purple-500 to-pink-600 text-white font-medium rounded-lg hover:from-purple-600 hover:to-pink-700 transition-all shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 text-xs whitespace-nowrap flex-shrink-0"
+                >
+                  ثبت‌نام
+                </button>
+                {/* Desktop: Combined button */}
+                <button
+                  onClick={() => openAuthModal()}
+                  className="hidden sm:inline-block px-4 sm:px-6 py-2 sm:py-2.5 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-medium rounded-lg hover:from-green-600 hover:to-emerald-700 transition-all shadow-lg shadow-green-500/25 hover:shadow-green-500/40 text-xs sm:text-sm whitespace-nowrap flex-shrink-0"
+                >
+                  ورود / ثبت‌نام
+                </button>
+              </div>
             )}
           </div>
         </div>
