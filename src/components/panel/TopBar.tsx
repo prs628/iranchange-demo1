@@ -64,18 +64,18 @@ export default function TopBar() {
     <>
       <div className="w-full bg-white/5 backdrop-blur-sm border-b border-white/10 px-2 sm:px-6 py-3 sm:py-4.5">
         <div className="flex items-center justify-between gap-2 sm:gap-4">
-          {/* Right: Logo + Page Title - Hidden on mobile to save space */}
+          {/* Right: Logo + Page Title - Always visible */}
           <div className="flex items-center gap-2 sm:gap-4 flex-shrink min-w-0">
-            <Link href="/" className="flex items-center gap-1 sm:gap-2 flex-none shrink-0 hidden sm:flex">
-              <div className="h-10 w-40 overflow-hidden flex-none shrink-0">
+            <Link href="/" className="flex items-center gap-1 sm:gap-2 flex-none shrink-0">
+              <div className="h-8 sm:h-10 w-32 sm:w-40 overflow-hidden flex-none shrink-0">
                 <img
-                  src="/log/iranchange-logo.png"
+                  src={getAssetPath("/log/iranchange-logo.png")}
                   alt="Iranchange"
                   className="w-full h-full object-cover"
                 />
               </div>
             </Link>
-            <h1 className="text-lg font-bold text-white truncate hidden sm:block">{getPageTitle()}</h1>
+            <h1 className="text-base sm:text-lg font-bold text-white truncate">{getPageTitle()}</h1>
           </div>
 
           {/* Center: Search (optional) */}
