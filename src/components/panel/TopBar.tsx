@@ -2,6 +2,7 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/components/auth/AuthProvider";
+import { getAssetPath } from "@/lib/paths";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { getSessionUser } from "@/lib/auth";
