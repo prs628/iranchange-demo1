@@ -53,41 +53,47 @@ export default function Footer() {
 
         {/* Bottom row: social + copyright */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-t border-white/5 pt-4">
-          <div className="flex items-center gap-3 text-[11px] sm:text-xs text-slate-400">
-            <span className="text-slate-500">ما را در شبکه‌های اجتماعی دنبال کنید:</span>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 text-[11px] sm:text-xs text-slate-400">
+            <span className="text-slate-500 whitespace-nowrap">ما را در شبکه‌های اجتماعی دنبال کنید:</span>
             <div className="flex items-center gap-2">
               <a
                 href="#"
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-slate-200 text-[11px] sm:text-xs hover:bg-pink-500/20 hover:border-pink-400/70 hover:text-pink-300 transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-slate-200 text-xs hover:bg-pink-500/20 hover:border-pink-400/50 hover:text-pink-300 transition-all hover:scale-105"
               >
                 <img
                   src={getAssetPath("/icon/instagram.png")}
                   alt="Instagram"
-                  className="w-4 h-4"
+                  className="w-5 h-5 object-contain"
                 />
-                <span>اینستاگرام</span>
+                <span className="whitespace-nowrap">اینستاگرام</span>
               </a>
               <a
                 href="#"
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-slate-200 text-[11px] sm:text-xs hover:bg-cyan-500/20 hover:border-cyan-400/70 hover:text-cyan-300 transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-slate-200 text-xs hover:bg-cyan-500/20 hover:border-cyan-400/50 hover:text-cyan-300 transition-all hover:scale-105"
               >
                 <img
                   src={getAssetPath("/icon/telegram.png")}
                   alt="Telegram"
-                  className="w-4 h-4"
+                  className="w-5 h-5 object-contain"
                 />
-                <span>تلگرام</span>
+                <span className="whitespace-nowrap">تلگرام</span>
               </a>
               <a
                 href="#"
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-slate-200 text-[11px] sm:text-xs hover:bg-slate-500/20 hover:border-slate-300/70 hover:text-slate-100 transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-slate-200 text-xs hover:bg-slate-500/20 hover:border-slate-300/50 hover:text-slate-100 transition-all hover:scale-105"
               >
                 <img
                   src={getAssetPath("/icon/twitter.png")}
                   alt="Twitter / X"
-                  className="w-4 h-4"
+                  className="w-5 h-5 object-contain"
                 />
-                <span>توییتر / X</span>
+                <span className="whitespace-nowrap">توییتر</span>
               </a>
             </div>
           </div>
