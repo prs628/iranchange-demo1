@@ -46,11 +46,11 @@ let hasMigratedUsersOnce = false;
 let hasSeededAdminOnce = false;
 
 // Safely parse JSON without throwing and without overwriting storage on error
-function safeParseUsers(json: string | null): any[] | null {
+function safeParseUsers(json: string | null): User[] | null {
   if (!json) return null;
   try {
-    const parsed = JSON.parse(json);
-    return Array.isArray(parsed) ? parsed : null;
+    const parsed: unknown = JSON.parse(json);
+    return Array.isArray(parsed) ? (parsed as User[]) : null;
   } catch (error) {
     console.error("❌ Error parsing users JSON:", error);
     return null;
@@ -161,12 +161,13 @@ export function migrateUsers(): void {
     const adminUsersParsed = safeParseUsers(adminUsersJson) || [];
     if (Array.isArray(adminUsersParsed) && adminUsersParsed.length > 0) {
       // Convert old format to new format
-      const migratedFromAdmin: User[] = adminUsersParsed.map((u: any) => {
+      const migratedFromAdmin: User[] = adminUsersParsed.map((u: unknown) => {
+        const user = u as Partial<User> & { joinDate?: string; id?: number | string };
         // Fix createdAt - ensure it's a valid ISO string
         let createdAt = new Date().toISOString();
-        if (u.joinDate) {
+        if (user.joinDate) {
           try {
-            const date = new Date(u.joinDate);
+            const date = new Date(user.joinDate);
             if (!isNaN(date.getTime())) {
               createdAt = date.toISOString();
             }
@@ -177,18 +178,18 @@ export function migrateUsers(): void {
         }
         
         return {
-          id: u.id || Date.now() + Math.random(),
-          name: u.name || "",
-          email: u.email || "",
-          phone: u.phone || "",
-          role: (u.role === "admin" ? "admin" : "user") as UserRole,
-          passwordHash: u.passwordHash || "", // Keep if exists
+          id: user.id || Date.now() + Math.random(),
+          name: user.name || "",
+          email: user.email || "",
+          phone: user.phone || "",
+          role: (user.role === "admin" ? "admin" : "user") as UserRole,
+          passwordHash: user.passwordHash || "", // Keep if exists
           createdAt,
-          orders: u.orders || 0,
-          totalSpent: u.totalSpent || "۰",
-          status: u.status || "active",
-          joinDate: u.joinDate,
-          visibleGiftCards: u.visibleGiftCards || [],
+          orders: user.orders || 0,
+          totalSpent: user.totalSpent || "۰",
+          status: user.status || "active",
+          joinDate: user.joinDate,
+          visibleGiftCards: user.visibleGiftCards || [],
         };
       });
 
@@ -305,7 +306,8 @@ export async function seedAdminUser(): Promise<void> {
 // Register new user
 export async function register(
   name: string,
-  emailOrPhone: string,
+  email: string,
+  phone: string,
   password: string
 ): Promise<{ success: boolean; error?: string; user?: User }> {
   if (typeof window === "undefined") {
@@ -314,20 +316,24 @@ export async function register(
 
   try {
     const users = getUsers();
-    const isEmail = emailOrPhone.includes("@");
-    const email = isEmail ? emailOrPhone.trim() : "";
-    const phone = isEmail ? "" : emailOrPhone.trim();
+    const normalizedEmail = email.trim();
+    const normalizedPhone = phone.trim();
 
-    console.log("🔍 Registering user:", { name, email, phone, totalUsers: users.length });
+    console.log("🔍 Registering user:", {
+      name,
+      email: normalizedEmail,
+      phone: normalizedPhone,
+      totalUsers: users.length,
+    });
 
     // Check if user already exists
     // Only check non-empty values to avoid false positives
     const existingUser = users.find((u) => {
-      if (email && u.email && u.email === email) {
+      if (normalizedEmail && u.email && u.email === normalizedEmail) {
         console.log("❌ Found existing user with email:", u.email);
         return true;
       }
-      if (phone && u.phone && u.phone === phone) {
+      if (normalizedPhone && u.phone && u.phone === normalizedPhone) {
         console.log("❌ Found existing user with phone:", u.phone);
         return true;
       }
@@ -348,8 +354,8 @@ export async function register(
     const newUser: User = {
       id: Date.now(),
       name: name.trim(),
-      email,
-      phone,
+      email: normalizedEmail,
+      phone: normalizedPhone,
       role: "user",
       passwordHash,
       createdAt: new Date().toISOString(),

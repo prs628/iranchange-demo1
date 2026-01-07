@@ -97,19 +97,23 @@ export default function AuthModal({
     setError("");
 
     const formData = new FormData(e.currentTarget);
-    const name = formData.get("name") as string;
-    const identifier = formData.get("email") as string;
+    const firstName = formData.get("firstName") as string;
+    const lastName = formData.get("lastName") as string;
+    const email = formData.get("email") as string;
+    const phone = formData.get("phone") as string;
     const password = formData.get("password") as string;
     const confirmPassword = formData.get("confirmPassword") as string;
 
     // Validation
-    if (!name || !identifier || !password || !confirmPassword) {
+    if (!firstName || !lastName || !email || !phone || !password || !confirmPassword) {
       setError("لطفاً تمام فیلدها را پر کنید");
       setIsLoading(false);
       return;
     }
 
-    if (name.trim().length < 2) {
+    const fullName = `${firstName} ${lastName}`.trim();
+
+    if (fullName.length < 2) {
       setError("نام باید حداقل ۲ کاراکتر باشد");
       setIsLoading(false);
       return;
@@ -136,7 +140,12 @@ export default function AuthModal({
 
     try {
       // Register user using real function
-      const result = await register(name.trim(), identifier.trim(), password);
+      const result = await register(
+        fullName,
+        email.trim(),
+        phone.trim(),
+        password
+      );
 
       if (!result.success) {
         setError(result.error || "خطا در ثبت نام");
@@ -182,7 +191,7 @@ export default function AuthModal({
 
       {/* Modal */}
       <div
-        className="relative z-10 w-full max-w-md glass-card rounded-2xl p-8 shadow-2xl animate-in zoom-in duration-200"
+        className="relative z-10 w-full max-w-md glass-card rounded-2xl p-8 pt-12 shadow-2xl animate-in zoom-in duration-200"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
@@ -327,38 +336,75 @@ export default function AuthModal({
               </div>
             )}
 
-            <div>
-              <label
-                htmlFor="register-name"
-                className="block text-sm font-medium text-gray-300 mb-2"
-              >
-                نام
-              </label>
-              <input
-                id="register-name"
-                name="name"
-                type="text"
-                required
-                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-gray-500 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all"
-                placeholder="نام و نام خانوادگی"
-              />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label
+                  htmlFor="register-first-name"
+                  className="block text-sm font-medium text-gray-300 mb-2"
+                >
+                  نام
+                </label>
+                <input
+                  id="register-first-name"
+                  name="firstName"
+                  type="text"
+                  required
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-gray-500 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all"
+                  placeholder="نام"
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="register-last-name"
+                  className="block text-sm font-medium text-gray-300 mb-2"
+                >
+                  نام خانوادگی
+                </label>
+                <input
+                  id="register-last-name"
+                  name="lastName"
+                  type="text"
+                  required
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-gray-500 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all"
+                  placeholder="نام خانوادگی"
+                />
+              </div>
             </div>
 
-            <div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="md:order-1">
+                <label
+                  htmlFor="register-phone"
+                  className="block text-sm font-medium text-gray-300 mb-2"
+                >
+                  شماره موبایل
+                </label>
+                <input
+                  id="register-phone"
+                  name="phone"
+                  type="tel"
+                  required
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-gray-500 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all"
+                  placeholder="09123456789"
+                />
+              </div>
+
+              <div className="md:order-2">
               <label
                 htmlFor="register-email"
                 className="block text-sm font-medium text-gray-300 mb-2"
               >
-                شماره موبایل یا ایمیل
+                ایمیل
               </label>
               <input
                 id="register-email"
                 name="email"
-                type="text"
+                type="email"
                 required
                 className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-gray-500 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all"
-                placeholder="09123456789 یا example@email.com"
+                placeholder="example@email.com"
               />
+            </div>
             </div>
 
             <div>

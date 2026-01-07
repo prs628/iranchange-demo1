@@ -39,20 +39,24 @@ export default function RegisterPage() {
     setError("");
 
     const formData = new FormData(e.currentTarget);
-    const name = formData.get("name") as string;
-    const identifier = formData.get("identifier") as string;
+    const firstName = formData.get("firstName") as string;
+    const lastName = formData.get("lastName") as string;
+    const email = formData.get("email") as string;
+    const phone = formData.get("phone") as string;
     const password = formData.get("password") as string;
     const confirmPassword = formData.get("confirmPassword") as string;
     const acceptTerms = formData.get("acceptTerms") === "on";
 
     // Validation
-    if (!name || !identifier || !password || !confirmPassword) {
+    if (!firstName || !lastName || !email || !phone || !password || !confirmPassword) {
       setError("لطفاً تمام فیلدها را پر کنید");
       setIsLoading(false);
       return;
     }
 
-    if (name.trim().length < 2) {
+    const fullName = `${firstName} ${lastName}`.trim();
+
+    if (fullName.length < 2) {
       setError("نام باید حداقل ۲ کاراکتر باشد");
       setIsLoading(false);
       return;
@@ -78,7 +82,12 @@ export default function RegisterPage() {
 
     try {
       // PHASE 1: Register user in localStorage (no server call)
-      const result = await register(name.trim(), identifier.trim(), password);
+      const result = await register(
+        fullName,
+        email.trim(),
+        phone.trim(),
+        password
+      );
 
       if (!result.success) {
         setError(result.error || "خطا در ثبت نام");
@@ -132,34 +141,67 @@ export default function RegisterPage() {
 
           {/* Registration Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
-                نام و نام خانوادگی
-              </label>
-              <input
-                id="name"
-                name="name"
-                type="text"
-                required
-                disabled={isLoading}
-                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500/50 disabled:opacity-50 disabled:cursor-not-allowed"
-                placeholder="نام خود را وارد کنید"
-              />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="firstName" className="block text-sm font-medium text-gray-300 mb-2">
+                  نام
+                </label>
+                <input
+                  id="firstName"
+                  name="firstName"
+                  type="text"
+                  required
+                  disabled={isLoading}
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500/50 disabled:opacity-50 disabled:cursor-not-allowed"
+                  placeholder="نام"
+                />
+              </div>
+              <div>
+                <label htmlFor="lastName" className="block text-sm font-medium text-gray-300 mb-2">
+                  نام خانوادگی
+                </label>
+                <input
+                  id="lastName"
+                  name="lastName"
+                  type="text"
+                  required
+                  disabled={isLoading}
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500/50 disabled:opacity-50 disabled:cursor-not-allowed"
+                  placeholder="نام خانوادگی"
+                />
+              </div>
             </div>
 
-            <div>
-              <label htmlFor="identifier" className="block text-sm font-medium text-gray-300 mb-2">
-                ایمیل یا شماره تلفن
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="md:order-1">
+                <label htmlFor="phone" className="block text-sm font-medium text-gray-300 mb-2">
+                  شماره تلفن
+                </label>
+                <input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  required
+                  disabled={isLoading}
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500/50 disabled:opacity-50 disabled:cursor-not-allowed"
+                  placeholder="09123456789"
+                />
+              </div>
+
+              <div className="md:order-2">
+              <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+                ایمیل
               </label>
               <input
-                id="identifier"
-                name="identifier"
-                type="text"
+                id="email"
+                name="email"
+                type="email"
                 required
                 disabled={isLoading}
                 className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500/50 disabled:opacity-50 disabled:cursor-not-allowed"
-                placeholder="example@email.com یا 09123456789"
+                placeholder="example@email.com"
               />
+            </div>
             </div>
 
             <div>

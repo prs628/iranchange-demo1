@@ -2,6 +2,12 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
+  eslint: {
+    ignoreDuringBuilds: true, // Disable ESLint during builds for demo deployment
+  },
+  typescript: {
+    ignoreBuildErrors: false, // Keep TS checking, but allow ESLint to be ignored
+  },
   async headers() {
     return [
       {

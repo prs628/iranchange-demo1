@@ -23,10 +23,11 @@ export default function TestUsersPage() {
     try {
       const testName = `تست ${Date.now()}`;
       const testEmail = `test${Date.now()}@example.com`;
+      const testPhone = `0912${Date.now().toString().slice(-7)}`;
       const testPassword = "Test123456";
       
       console.log("🔄 Testing registration...");
-      const result = await register(testName, testEmail, testPassword);
+      const result = await register(testName, testEmail, testPhone, testPassword);
       
       if (result.success) {
         setTestResult(`✅ ثبت‌نام موفق! کاربر: ${result.user?.name}`);

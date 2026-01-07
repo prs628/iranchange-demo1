@@ -30,7 +30,10 @@ export default function SidebarItem({ item, level = 0, variant = "dark", onLinkC
 
   useEffect(() => {
     if (hasActiveChild) {
-      setIsOpen(true);
+      // Use queueMicrotask to avoid synchronous setState in effect
+      queueMicrotask(() => {
+        setIsOpen(true);
+      });
     }
   }, [hasActiveChild]);
 

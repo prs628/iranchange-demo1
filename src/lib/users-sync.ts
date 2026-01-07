@@ -7,7 +7,7 @@ const SYNC_KEY = "users_sync_data";
 const SYNC_INTERVAL = 1000; // 1 second
 
 // Store users in a shared location that both ports can access
-export function syncUsersToSharedStorage(users: any[]): void {
+export function syncUsersToSharedStorage(users: unknown[]): void {
   if (typeof window === "undefined") return;
   
   try {
@@ -49,7 +49,7 @@ export function syncUsersToSharedStorage(users: any[]): void {
 // Poll for users from the other port
 export function pollUsersFromOtherPort(
   currentPort: number,
-  onUsersUpdate: (users: any[]) => void
+  onUsersUpdate: (users: unknown[]) => void
 ): () => void {
   if (typeof window === "undefined") return () => {};
   

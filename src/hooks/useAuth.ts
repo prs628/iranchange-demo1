@@ -16,7 +16,10 @@ export function useAuth() {
 
   // Initialize auth status on mount
   useEffect(() => {
-    checkAuth();
+    // Use queueMicrotask to avoid synchronous setState in effect
+    queueMicrotask(() => {
+      checkAuth();
+    });
   }, [checkAuth]);
 
   // Poll for cookie changes (in case cookie is set/cleared elsewhere)

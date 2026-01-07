@@ -35,14 +35,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
-    checkAuth();
+    // Use queueMicrotask to avoid synchronous setState in effect
+    queueMicrotask(() => {
+      checkAuth();
+    });
+    
     const interval = setInterval(checkAuth, 500);
     
     // Also listen for storage changes (when login happens in another tab/window)
     const handleStorageChange = (e: StorageEvent) => {
       if (e.key === "session_user_id") {
         console.log("📢 Storage changed: session_user_id - checking auth...");
-        checkAuth();
+        queueMicrotask(() => {
+          checkAuth();
+        });
       }
     };
     
