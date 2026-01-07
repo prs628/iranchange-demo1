@@ -1,13 +1,14 @@
 // PHASE 1: NextAuth middleware disabled temporarily
 // This middleware will be re-enabled in Phase 3 after Prisma is fixed
+// DISABLED FOR GITHUB PAGES: Middleware doesn't work with static export
 
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 // import { getToken } from "next-auth/jwt"
 
 export async function middleware(request: NextRequest) {
-  // PHASE 1: Disabled - allow all requests through
-  // Auth is now handled client-side via localStorage
+  // DISABLED FOR STATIC EXPORT: Middleware is not supported in static export
+  // For GitHub Pages, all routing is handled client-side
   return NextResponse.next()
   
   /* PHASE 3: Re-enable after Prisma is fixed
