@@ -9,6 +9,8 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { getSessionUser } from "@/lib/auth";
 
+// Fixed TypeScript errors: onClick handlers now properly wrap openAuthModal
+
 // Fake data
 const recentOrders = [
   {
