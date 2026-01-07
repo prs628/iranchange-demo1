@@ -8,6 +8,7 @@ import Sidebar from "@/components/panel/Sidebar";
 import Footer from "@/components/panel/Footer";
 import { useState, useEffect } from "react";
 import { getUsers, getSessionUser } from "@/lib/auth";
+import { getAssetPath } from "@/lib/paths";
 
 // Mock data
 const suggestedServices = [
