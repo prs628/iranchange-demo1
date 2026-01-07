@@ -1,0 +1,3 @@
+# API routes disabled for static export (GitHub Pages)
+# These routes require server-side execution which is not available in static export
+
