@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { AuthProvider } from "@/components/auth/AuthProvider";
+import BuildBadge from "@/components/BuildBadge";
 // PHASE 1: NextAuth disabled temporarily
 // import SessionProvider from "@/components/auth/SessionProvider";
 
@@ -21,6 +22,7 @@ export default function RootLayout({
         {/* <SessionProvider> */}
           <AuthProvider>
             {children}
+            <BuildBadge />
           </AuthProvider>
         {/* </SessionProvider> */}
       </body>
