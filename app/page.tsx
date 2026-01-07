@@ -316,7 +316,7 @@ export default function LandingPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-950 relative flex flex-col">
+    <div className="min-h-screen bg-slate-950 relative flex flex-col overflow-x-hidden">
       {/* Dark gradient background */}
       <div className="fixed inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 pointer-events-none" />
       

@@ -105,7 +105,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 relative flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 relative flex items-start justify-center p-4 overflow-y-auto">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
         <div className="absolute inset-0" style={{
@@ -114,8 +114,8 @@ export default function RegisterPage() {
         }} />
       </div>
 
-      <div className="relative z-10 w-full max-w-md">
-        <div className="glass-card rounded-2xl p-8 shadow-2xl border border-white/10">
+      <div className="relative z-10 w-full max-w-md my-8">
+        <div className="glass-card rounded-2xl p-6 sm:p-8 shadow-2xl border border-white/10">
           {/* Header */}
           <div className="mb-8 text-center">
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-r from-green-500 to-blue-600 mb-4">
@@ -154,6 +154,12 @@ export default function RegisterPage() {
                   disabled={isLoading}
                   className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500/50 disabled:opacity-50 disabled:cursor-not-allowed"
                   placeholder="نام"
+                  onFocus={(e) => {
+                    // Scroll input into view on mobile
+                    setTimeout(() => {
+                      e.target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 300);
+                  }}
                 />
               </div>
               <div>
@@ -168,6 +174,11 @@ export default function RegisterPage() {
                   disabled={isLoading}
                   className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500/50 disabled:opacity-50 disabled:cursor-not-allowed"
                   placeholder="نام خانوادگی"
+                  onFocus={(e) => {
+                    setTimeout(() => {
+                      e.target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 300);
+                  }}
                 />
               </div>
             </div>
@@ -185,6 +196,11 @@ export default function RegisterPage() {
                   disabled={isLoading}
                   className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500/50 disabled:opacity-50 disabled:cursor-not-allowed"
                   placeholder="09123456789"
+                  onFocus={(e) => {
+                    setTimeout(() => {
+                      e.target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 300);
+                  }}
                 />
               </div>
 
@@ -200,6 +216,11 @@ export default function RegisterPage() {
                 disabled={isLoading}
                 className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500/50 disabled:opacity-50 disabled:cursor-not-allowed"
                 placeholder="example@email.com"
+                onFocus={(e) => {
+                  setTimeout(() => {
+                    e.target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  }, 300);
+                }}
               />
             </div>
             </div>
@@ -217,6 +238,11 @@ export default function RegisterPage() {
                 onChange={(e) => handlePasswordChange(e.target.value)}
                 className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500/50 disabled:opacity-50 disabled:cursor-not-allowed"
                 placeholder="حداقل ۸ کاراکتر"
+                onFocus={(e) => {
+                  setTimeout(() => {
+                    e.target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  }, 300);
+                }}
               />
               {passwordStrength && (
                 <div className="mt-2 flex items-center gap-2">
@@ -254,6 +280,16 @@ export default function RegisterPage() {
                 disabled={isLoading}
                 className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500/50 disabled:opacity-50 disabled:cursor-not-allowed"
                 placeholder="رمز عبور را دوباره وارد کنید"
+                onFocus={(e) => {
+                  setTimeout(() => {
+                    const submitBtn = document.getElementById('register-submit-btn');
+                    if (submitBtn) {
+                      submitBtn.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                    } else {
+                      e.target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                  }, 300);
+                }}
               />
             </div>
 
@@ -278,6 +314,7 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={isLoading}
+              id="register-submit-btn"
               className="w-full py-3 bg-gradient-to-r from-green-500 to-blue-600 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-green-500/25 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? "در حال ثبت نام..." : "ثبت نام"}
