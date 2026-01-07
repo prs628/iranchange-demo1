@@ -362,7 +362,7 @@ export default function LandingPage() {
               <Link href="/" className="flex items-center gap-2 flex-none shrink-0">
                 <div className="h-10 sm:h-12 w-40 sm:w-48 overflow-hidden flex-none shrink-0">
                   <img
-                    src="/log/iranchange-logo.png"
+                    src={getAssetPath("/log/iranchange-logo.png")}
                     alt="Iranchange"
                     className="w-full h-full object-cover"
                   />
@@ -618,7 +618,7 @@ export default function LandingPage() {
                       <div className="w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 rounded-xl sm:rounded-2xl bg-white/5 flex items-center justify-center mb-4 sm:mb-5 group-hover:bg-white/10 transition-colors border border-white/10 overflow-hidden p-4 sm:p-5 lg:p-6">
                         {card.logo ? (
                           <img
-                            src={card.logo}
+                            src={getAssetPath(card.logo)}
                             alt={card.brand}
                             className="w-full h-full object-contain"
                           />

@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 // PHASE 1: NextAuth disabled temporarily
 // import { useSession } from "next-auth/react";
 import { getUsers } from "@/lib/auth";
+import { getAssetPath } from "@/lib/paths";
 
 type GiftCard = {
   id: number;
@@ -183,7 +184,7 @@ export default function GiftCardsPage() {
               <div className="w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 rounded-2xl bg-white/5 flex items-center justify-center mb-5 group-hover:bg-white/10 transition-colors border border-white/10 overflow-hidden p-5 lg:p-6">
                 {card.logo ? (
                   <img
-                    src={card.logo}
+                    src={getAssetPath(card.logo)}
                     alt={card.brand}
                     className="w-full h-full object-contain"
                   />

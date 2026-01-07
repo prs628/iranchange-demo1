@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { getAssetPath } from "@/lib/paths";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -15,7 +16,7 @@ export default function Footer() {
               <Link href="/" className="flex items-center gap-2 flex-none shrink-0">
                 <div className="h-8 sm:h-10 w-36 sm:w-40 overflow-hidden flex-none shrink-0">
                   <img
-                    src="/log/iranchange-logo.png"
+                    src={getAssetPath("/log/iranchange-logo.png")}
                     alt="Iranchange"
                     className="w-full h-full object-cover"
                   />

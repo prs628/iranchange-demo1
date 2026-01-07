@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/components/auth/AuthProvider";
 import { getGiftCardPricing, GiftCardAmountConfig } from "@/lib/giftCardPricing";
+import { getAssetPath } from "@/lib/paths";
 
 // اطلاعات گیفت کارت‌ها
 const giftCardData: Record<string, {
@@ -320,7 +321,7 @@ export default function GiftCardPurchasePage() {
               <div className="flex items-start gap-6 mb-6">
                 <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-2xl bg-white/5 flex items-center justify-center border border-white/10 overflow-hidden p-4">
                   <img
-                    src={cardData.logo}
+                    src={getAssetPath(cardData.logo)}
                     alt={cardData.brand}
                     className="w-full h-full object-contain"
                   />
