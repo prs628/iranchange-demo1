@@ -420,7 +420,7 @@ export default function LandingPage() {
                 </div>
               ) : (
                 <div className="flex items-center gap-2">
-                  {/* Mobile: Two separate buttons */}
+                  {/* Mobile: Two separate buttons - Login and Register */}
                   <button
                     onClick={() => openAuthModal("login")}
                     className="sm:hidden px-3 py-2 bg-gradient-to-r from-cyan-500 to-purple-600 text-white font-medium rounded-full hover:shadow-lg hover:shadow-cyan-500/25 transition-all text-xs"
