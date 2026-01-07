@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { useAuth } from "./AuthProvider";
 import { login, register } from "@/lib/auth";
 
+// Fixed mobile scroll issue: modal content now scrolls independently from page
+
 type TabType = "login" | "register";
 
 type AuthModalProps = {
