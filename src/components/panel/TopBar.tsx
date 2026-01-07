@@ -67,7 +67,7 @@ export default function TopBar() {
           {/* Right: Logo + Page Title */}
           <div className="flex items-center gap-1 sm:gap-4 flex-shrink min-w-0">
             <Link href="/" className="flex items-center gap-1 sm:gap-2 flex-none shrink-0">
-              <div className="h-7 sm:h-10 w-24 sm:w-40 overflow-hidden flex-none shrink-0">
+              <div className="h-6 sm:h-10 w-20 sm:w-40 overflow-hidden flex-none shrink-0">
                 <img
                   src="/log/iranchange-logo.png"
                   alt="Iranchange"
@@ -75,7 +75,7 @@ export default function TopBar() {
                 />
               </div>
             </Link>
-            <h1 className="text-xs sm:text-lg font-bold text-white truncate">{getPageTitle()}</h1>
+            <h1 className="text-[10px] sm:text-lg font-bold text-white truncate hidden xs:block">{getPageTitle()}</h1>
           </div>
 
           {/* Center: Search (optional) */}
@@ -88,7 +88,7 @@ export default function TopBar() {
           </div>
 
           {/* Top-Left: Auth Button */}
-          <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+          <div className="flex items-center gap-1 sm:gap-3 flex-shrink-0">
             {isLoggedIn ? (
               <>
                 <span className="text-sm text-gray-300 hidden sm:inline">{userName || "کاربر"}</span>
@@ -102,7 +102,7 @@ export default function TopBar() {
             ) : (
               <button
                 onClick={openAuthModal}
-                className="px-2.5 sm:px-6 py-2 sm:py-2.5 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 text-[11px] sm:text-sm whitespace-nowrap flex-shrink-0"
+                className="px-3 sm:px-6 py-2 sm:py-2.5 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 text-[11px] sm:text-sm whitespace-nowrap flex-shrink-0 min-w-fit"
               >
                 ورود / ثبت‌نام
               </button>
