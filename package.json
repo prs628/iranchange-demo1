@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "TURBOPACK=0 next dev",
     "build": "next build",
+    "build:static": "GITHUB_PAGES=true next build",
+    "export": "npm run build:static",
     "start": "next start",
     "lint": "eslint",
     "prisma:generate": "prisma generate",

@@ -104,20 +104,20 @@ export default function TopBar() {
                 {/* Mobile: Two separate buttons */}
                 <button
                   onClick={() => openAuthModal("login")}
-                  className="sm:hidden px-3 py-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-medium rounded-lg hover:from-green-600 hover:to-emerald-700 transition-all shadow-lg shadow-green-500/25 hover:shadow-green-500/40 text-xs whitespace-nowrap flex-shrink-0"
+                  className="sm:hidden px-3 py-2 bg-gradient-to-r from-cyan-500 to-purple-600 text-white font-medium rounded-lg hover:shadow-lg hover:shadow-cyan-500/25 transition-all text-xs whitespace-nowrap flex-shrink-0"
                 >
                   ورود
                 </button>
                 <button
                   onClick={() => openAuthModal("register")}
-                  className="sm:hidden px-3 py-2 bg-gradient-to-r from-purple-500 to-pink-600 text-white font-medium rounded-lg hover:from-purple-600 hover:to-pink-700 transition-all shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 text-xs whitespace-nowrap flex-shrink-0"
+                  className="sm:hidden px-3 py-2 bg-gradient-to-r from-purple-500 to-pink-600 text-white font-medium rounded-lg hover:shadow-lg hover:shadow-purple-500/25 transition-all text-xs whitespace-nowrap flex-shrink-0"
                 >
                   ثبت‌نام
                 </button>
                 {/* Desktop: Combined button */}
                 <button
                   onClick={() => openAuthModal()}
-                  className="hidden sm:inline-block px-4 sm:px-6 py-2 sm:py-2.5 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-medium rounded-lg hover:from-green-600 hover:to-emerald-700 transition-all shadow-lg shadow-green-500/25 hover:shadow-green-500/40 text-xs sm:text-sm whitespace-nowrap flex-shrink-0"
+                  className="hidden sm:inline-block px-4 sm:px-6 py-2 sm:py-2.5 bg-gradient-to-r from-cyan-500 to-purple-600 text-white font-medium rounded-lg hover:shadow-lg hover:shadow-cyan-500/25 transition-all text-xs sm:text-sm whitespace-nowrap flex-shrink-0"
                 >
                   ورود / ثبت‌نام
                 </button>

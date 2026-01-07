@@ -533,14 +533,14 @@ export default function LandingPage() {
               {/* Accent glow blob behind hero */}
               <div className="absolute -right-20 -top-20 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none hidden lg:block" />
               
-              <div className="relative glass-panel rounded-2xl p-4 sm:p-6 lg:p-8 overflow-hidden shadow-2xl">
-                <div className="relative z-10">
+              <div className="relative glass-panel rounded-2xl p-4 sm:p-6 lg:p-8 overflow-hidden shadow-2xl" style={{ minHeight: '320px', height: '320px' }}>
+                <div className="relative z-10 h-full flex flex-col">
                   {heroSlides[activeHeroIndex] && (
                     <>
                   <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-slate-100 mb-3 sm:mb-4 leading-tight">
                     {heroSlides[activeHeroIndex].title}
                   </h1>
-                  <p className="text-sm sm:text-base lg:text-lg text-slate-300 mb-4 sm:mb-6 max-w-2xl leading-relaxed">
+                  <p className="text-sm sm:text-base lg:text-lg text-slate-300 mb-4 sm:mb-6 max-w-2xl leading-relaxed flex-1">
                     {heroSlides[activeHeroIndex].description}
                   </p>
                   
@@ -555,7 +555,7 @@ export default function LandingPage() {
                   </div>
 
                   {/* Trust chips */}
-                  <div className="flex flex-wrap gap-2 sm:gap-3">
+                  <div className="flex flex-wrap gap-2 sm:gap-3 mb-4">
                     <div className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white/5 border border-white/10 rounded-full text-xs sm:text-sm text-slate-300 backdrop-blur-sm">
                       <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 inline-block ml-2" />
                       تسویه سریع
@@ -571,7 +571,7 @@ export default function LandingPage() {
                   </div>
 
                   {/* Hero slider indicators */}
-                  <div className="mt-4 flex items-center gap-2 flex-wrap">
+                  <div className="mt-auto flex items-center gap-2 flex-wrap">
                     {heroSlides.map((slide, index) => (
                       <button
                         key={slide.id}
