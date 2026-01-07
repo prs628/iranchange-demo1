@@ -1,19 +1,13 @@
 import type { NextConfig } from "next";
 
-// GitHub Pages configuration
-const isGitHubPages = process.env.GITHUB_PAGES === "true";
-const repoName = "iranchange-demo1";
-const basePath = isGitHubPages ? `/${repoName}` : "";
-const assetPrefix = isGitHubPages ? `/${repoName}/` : "";
+const repo = "iranchange-demo1";
 
 const nextConfig: NextConfig = {
-  // Static export for GitHub Pages
-  ...(isGitHubPages ? {
-    output: "export" as const,
-    basePath,
-    assetPrefix,
-    images: { unoptimized: true },
-  } : {}),
+  output: "export",
+  images: { unoptimized: true },
+  basePath: `/${repo}`,
+  assetPrefix: `/${repo}/`,
+  trailingSlash: true,
   
   /* config options here */
   eslint: {
